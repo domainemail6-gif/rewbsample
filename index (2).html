@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate with Bhavik — Buyer Advisory, Pan-NCR</title>
+  <meta name="description" content="Buyer-side real estate advisory across Noida, Greater Noida, Yamuna Expressway and Gurgaon. Research, shortlisting, negotiation — I work for you, not the developer.">
+  <meta property="og:title" content="Real Estate with Bhavik — Buyer Advisory, Pan-NCR">
+  <meta property="og:description" content="Buyer-side real estate advisory across Noida, Greater Noida, Yamuna Expressway and Gurgaon. Research, shortlisting, negotiation — I work for you, not the developer.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================
+       TOKENS
+    ======================================================== */
+    :root {
+      --bg:           #FAFAF8;
+      --bg-panel:     #F1F0EA;   /* sell box / subtle panel */
+      --surface:      #FFFFFF;
+      --ink:          #161616;
+      --muted:        #6E6E68;
+      --muted-soft:   #9A9A93;
+      --accent:       #1C3D2C;   /* deep forest green */
+      --accent-deep:  #142E20;
+      --line:         #E4E3DC;
+      --line-strong:  #D5D4CC;
+
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'DM Sans', system-ui, -apple-system, sans-serif;
+
+      --maxw: 680px;
+      --pad:  1.25rem;
+    }
+
+    /* ========================================================
+       RESET & BASE
+    ======================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    ::selection { background: rgba(28, 61, 44, 0.14); }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ========================================================
+       LAYOUT PRIMITIVES
+    ======================================================== */
+    .wrap {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+    }
+
+    section { padding: 4.25rem 0; }
+
+    /* Recurring editorial eyebrow — the page's quiet signature device */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: var(--line-strong);
+      flex: none;
+    }
+
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; }
+
+    p { color: var(--muted); }
+    .ink { color: var(--ink); }
+
+    /* ========================================================
+       BUTTONS
+    ======================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
+      line-height: 1;
+      padding: 0.95rem 1.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #FFFFFF;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.15s ease;
+    }
+    .btn:hover { background: var(--accent-deep); }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn-ghost:hover { background: rgba(28, 61, 44, 0.06); }
+
+    .btn-sm { padding: 0.7rem 1.1rem; font-size: 0.8rem; }
+
+    /* ========================================================
+       NAVIGATION
+    ======================================================== */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s ease, border-color 0.3s ease, padding 0.3s ease;
+    }
+    #nav .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.1rem;
+      padding-bottom: 1.1rem;
+      transition: padding 0.3s ease;
+    }
+    #nav.scrolled {
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    #nav.scrolled .nav-inner { padding-top: 0.8rem; padding-bottom: 0.8rem; }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.02rem;
+      letter-spacing: 0.005em;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    /* ========================================================
+       HERO
+    ======================================================== */
+    #hero { padding-top: 3.5rem; padding-bottom: 4.5rem; }
+
+    .hero-title {
+      font-size: clamp(2.05rem, 7vw, 2.95rem);
+      line-height: 1.16;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 1.35rem;
+    }
+    .hero-sub {
+      font-size: 1.02rem;
+      color: var(--muted);
+      max-width: 33ch;
+      margin-bottom: 1.9rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.1rem;
+    }
+    .tag {
+      font-size: 0.76rem;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 0.34rem 0.8rem;
+      line-height: 1.2;
+    }
+
+    /* ========================================================
+       PROBLEM — quiet list
+    ======================================================== */
+    .quiet-list { list-style: none; }
+    .quiet-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      color: var(--muted);
+      margin: 0.55rem 0;
+      line-height: 1.6;
+    }
+    .quiet-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 7px;
+      height: 1px;
+      background: var(--line-strong);
+    }
+    .closer {
+      margin-top: 1.9rem;
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    /* ========================================================
+       SOLUTION — dash list
+    ======================================================== */
+    .lede { color: var(--muted); margin-bottom: 1.7rem; }
+
+    .dash-list { list-style: none; }
+    .dash-list li {
+      position: relative;
+      padding-left: 1.4rem;
+      color: var(--muted);
+      margin: 0.5rem 0;
+      line-height: 1.55;
+    }
+    .dash-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--muted-soft);
+    }
+    .note-line {
+      margin-top: 1.8rem;
+      color: var(--ink);
+      font-size: 0.98rem;
+    }
+
+    /* ========================================================
+       PACKAGES
+    ======================================================== */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.5rem 1.45rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .card.featured { border: 1.5px solid var(--accent); }
+    .card.span-2 { grid-column: 1 / -1; }
+
+    .card-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.15rem;
+    }
+    .card-name {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .badge {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 0.25rem 0.55rem;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .card-price {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .card-desc {
+      font-size: 0.92rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+    .card .dash-list li {
+      font-size: 0.88rem;
+      margin: 0.42rem 0;
+      line-height: 1.5;
+    }
+    .cards-note {
+      margin-top: 1.6rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ========================================================
+       PROCESS — numbered timeline
+    ======================================================== */
+    .timeline { margin-top: 0.5rem; }
+    .step { display: flex; gap: 1.1rem; }
+    .step:not(:last-child) { padding-bottom: 1.7rem; }
+
+    .step-rail { display: flex; flex-direction: column; align-items: center; flex: none; }
+    .step-num {
+      width: 2.4rem;
+      height: 2.4rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.02rem;
+      color: var(--ink);
+      background: var(--bg);
+      flex: none;
+    }
+    .step-rail .connector {
+      width: 1px;
+      flex: 1;
+      background: var(--line);
+      margin-top: 0.45rem;
+    }
+    .step-body { padding-top: 0.25rem; }
+    .step-title {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.98rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .step-body p { font-size: 0.92rem; }
+
+    /* ========================================================
+       WHY ME
+    ======================================================== */
+    .photo-ph {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1px dashed var(--line-strong);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--muted-soft);
+      margin-bottom: 1.8rem;
+    }
+
+    /* ========================================================
+       SELL BOX
+    ======================================================== */
+    .sell {
+      background: var(--bg-panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.85rem 1.6rem;
+    }
+    .sell .eyebrow { margin-bottom: 1.1rem; }
+    .sell p { color: var(--ink); margin-bottom: 1.4rem; }
+
+    /* ========================================================
+       FINAL CTA
+    ======================================================== */
+    #final { text-align: center; padding: 5rem 0; }
+    .final-title {
+      font-size: clamp(1.9rem, 6vw, 2.5rem);
+      line-height: 1.18;
+      color: var(--ink);
+      margin-bottom: 1.1rem;
+    }
+    .final-sub {
+      color: var(--muted);
+      max-width: 38ch;
+      margin: 0 auto 2rem;
+    }
+    .ig-link {
+      display: inline-block;
+      margin-top: 1.6rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line-strong);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .ig-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ========================================================
+       FOOTER
+    ======================================================== */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0;
+    }
+    footer p {
+      font-size: 0.78rem;
+      letter-spacing: 0.01em;
+      color: var(--muted-soft);
+      text-align: center;
+    }
+
+    /* ========================================================
+       SECTION DIVIDER (hairline between blocks)
+    ======================================================== */
+    .rule { height: 1px; background: var(--line); width: 100%; }
+
+    /* ========================================================
+       SCROLL REVEAL (vanilla, reduced-motion safe)
+    ======================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn { transition: none; }
+    }
+
+    /* ========================================================
+       RESPONSIVE
+    ======================================================== */
+    @media (max-width: 560px) {
+      .cards { grid-template-columns: 1fr; }
+      .card.span-2 { grid-column: auto; }
+      section { padding: 3.5rem 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header id="nav">
+    <div class="wrap nav-inner">
+      <a href="#" class="nav-name">Real Estate with Bhavik</a>
+      <a class="btn btn-sm" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Bhavik%2C%20I%27d%20like%20to%20book%20a%20discovery%20call." target="_blank" rel="noopener">Book a call — ₹2,000</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section id="hero">
+      <div class="wrap">
+        <h1 class="hero-title">Most agents work for the developer.<br>I work for you.</h1>
+        <p class="hero-sub">If you've decided to buy property in NCR and need the right person in your corner — this is where that starts.</p>
+
+        <div class="tags">
+          <span class="tag">Noida</span>
+          <span class="tag">Greater Noida</span>
+          <span class="tag">Yamuna Expressway</span>
+          <span class="tag">Gurgaon</span>
+          <span class="tag">Pan-NCR</span>
+        </div>
+
+        <a class="btn" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Bhavik%2C%20I%27d%20like%20to%20book%20a%20discovery%20call." target="_blank" rel="noopener">Book a discovery call — ₹2,000</a>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule"></div></div>
+
+    <!-- ===================== PROBLEM ===================== -->
+    <section id="problem">
+      <div class="wrap reveal">
+        <div class="eyebrow">Sound familiar?</div>
+        <ul class="quiet-list">
+          <li>Constant calls from brokers pushing projects you never asked about</li>
+          <li>Five different brokers showing you the same three projects</li>
+          <li>Weekends spent running between sites, coming back more confused</li>
+          <li>Details shared without permission, inbox flooded</li>
+          <li>Everyone has an agenda — nobody is actually on your side</li>
+          <li>Spending months in the process and still no clarity</li>
+        </ul>
+        <p class="closer">That's the standard home buying experience in NCR. It doesn't have to be yours.</p>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule"></div></div>
+
+    <!-- ===================== SOLUTION ===================== -->
+    <section id="solution">
+      <div class="wrap reveal">
+        <div class="eyebrow">What working with me looks like</div>
+        <p class="lede">I take the entire research and decision process off your plate. No spam, no inventory pushing, no hidden agendas. You talk directly to me. Your details stay private. I find the options, do the work, give you the facts — and you make the decision with full clarity.</p>
+        <ul class="dash-list">
+          <li>Full market survey across resale and new launches</li>
+          <li>Legal status and clear title verification — no surprises at registration</li>
+          <li>Actual carpet area, super area ratio, layout efficiency</li>
+          <li>Society conditions, maintenance charges, actual amenity quality — not brochure photos</li>
+          <li>Payment breakdown with all hidden costs — PLC, EDC, IDC, parking, GST, maintenance deposit</li>
+          <li>Access roads, commute reality, nearby infrastructure, what's coming around it</li>
+          <li>Comparison table across all shortlisted options</li>
+          <li>My honest, unfiltered verdict on each project — who it's right for, what the risks are</li>
+          <li>Site visits coordinated and accompanied (full advisory packages)</li>
+          <li>Video walkthroughs of property, society, access, surroundings</li>
+          <li>Owner and developer meetings arranged</li>
+          <li>Negotiation handled on your behalf</li>
+          <li>Everything compiled into a clean buyer's report — structured PDF, shareable</li>
+          <li>Zoom calls throughout the process</li>
+          <li>Curated personal video episode for each shortlisted option (especially for NRI clients who cannot visit)</li>
+        </ul>
+        <p class="note-line ink">I don't push inventory. I don't have a developer on speed dial who pays me to send you their way. I find what's right for your requirement and I tell you the truth about it.</p>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule"></div></div>
+
+    <!-- ===================== PACKAGES ===================== -->
+    <section id="packages">
+      <div class="wrap reveal">
+        <div class="eyebrow">How to work with me</div>
+        <div class="cards">
+
+          <!-- Card 1 -->
+          <article class="card">
+            <div class="card-top"><span class="card-name">Discovery Call</span></div>
+            <div class="card-price">₹2,000</div>
+            <div class="card-desc">Start here. Always.</div>
+            <ul class="dash-list">
+              <li>30 minute WhatsApp call</li>
+              <li>Understand your exact requirement, budget, timeline, type of property</li>
+              <li>I tell you honestly if I can help and which package fits</li>
+              <li>Non-refundable — keeps the conversation serious on both sides</li>
+            </ul>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card">
+            <div class="card-top"><span class="card-name">Research Package</span></div>
+            <div class="card-price">₹25,000</div>
+            <div class="card-desc">For buyers who want clarity before committing.</div>
+            <ul class="dash-list">
+              <li>3–5 shortlisted projects matching your requirement</li>
+              <li>Micromarket analysis for your target geography</li>
+              <li>Full payment breakdown with hidden costs</li>
+              <li>Legal status of each project</li>
+              <li>Comparison table across all options</li>
+              <li>My honest written verdict on each</li>
+              <li>Delivered as a clean structured PDF</li>
+              <li>Standalone — non-refundable, not adjusted against brokerage</li>
+              <li>If you proceed to full advisory after this, ₹25,000 is credited toward that package</li>
+            </ul>
+          </article>
+
+          <!-- Card 3 — Featured -->
+          <article class="card featured">
+            <div class="card-top">
+              <span class="card-name">Full Advisory</span>
+              <span class="badge">Most popular</span>
+            </div>
+            <div class="card-price">₹75,000</div>
+            <div class="card-desc">End to end. I handle everything.</div>
+            <ul class="dash-list">
+              <li>Everything in the Research Package</li>
+              <li>Site visits coordinated and accompanied</li>
+              <li>Video walkthroughs of property, access, surroundings</li>
+              <li>Comparison presentation with full breakdown</li>
+              <li>Owner and developer meetings arranged</li>
+              <li>Negotiation handled on your behalf</li>
+              <li>Zoom calls throughout</li>
+              <li>Buyer's report PDF</li>
+              <li>Adjusted against brokerage at deal closure — you never pay more than standard brokerage</li>
+            </ul>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card">
+            <div class="card-top"><span class="card-name">NRI Package</span></div>
+            <div class="card-price">₹1,00,000</div>
+            <div class="card-desc">Full advisory, built for buyers who can't be on the ground.</div>
+            <ul class="dash-list">
+              <li>Everything in Full Advisory</li>
+              <li>Entire process is remote-first</li>
+              <li>Curated personal video episode for each shortlisted property — property walkthrough, access roads, society common areas, nearby infrastructure, surroundings</li>
+              <li>WhatsApp updates throughout with photos and voice notes</li>
+              <li>Zoom decision calls at every stage</li>
+              <li>You never need to visit until the final agreement — if at all</li>
+              <li>Built specifically for NRI buyers making decisions from abroad</li>
+              <li>Adjusted against brokerage at deal closure</li>
+            </ul>
+          </article>
+
+          <!-- Card 5 — Full width -->
+          <article class="card span-2">
+            <div class="card-top"><span class="card-name">Custom Engagement</span></div>
+            <div class="card-price">Scope-based — get in touch</div>
+            <div class="card-desc">For requirements outside the standard scope.</div>
+            <ul class="dash-list">
+              <li>Research in tier 2–3 cities</li>
+              <li>Unusual or complex briefs</li>
+              <li>Anything that doesn't fit the packages above</li>
+              <li>Unbiased opinion, same research depth, same honest approach</li>
+              <li>Priced based on scope after discovery call</li>
+            </ul>
+          </article>
+
+        </div>
+
+        <p class="cards-note">All packages (except Research) are adjusted against brokerage at deal closure. You don't pay more than the brokerage you'd pay anyway — you just pay part of it earlier, to someone who is actually working for you.</p>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule"></div></div>
+
+    <!-- ===================== PROCESS ===================== -->
+    <section id="process">
+      <div class="wrap reveal">
+        <div class="eyebrow">The process</div>
+        <div class="timeline">
+
+          <div class="step">
+            <div class="step-rail"><div class="step-num">1</div><div class="connector"></div></div>
+            <div class="step-body">
+              <div class="step-title">Book a discovery call — ₹2,000</div>
+              <p>We talk for 30 minutes. You tell me what you're looking for — type of property, geography, budget, timeline. I tell you exactly how I can help and which package makes sense.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail"><div class="step-num">2</div><div class="connector"></div></div>
+            <div class="step-body">
+              <div class="step-title">We agree on the right package</div>
+              <p>Based on your requirement, we decide the level of engagement. A simple one-page agreement is signed. Work begins.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail"><div class="step-num">3</div><div class="connector"></div></div>
+            <div class="step-body">
+              <div class="step-title">I do the research</div>
+              <p>Market survey, legal checks, shortlisting, payment breakdowns, comparison analysis. All of it. You don't lift a finger.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail"><div class="step-num">4</div><div class="connector"></div></div>
+            <div class="step-body">
+              <div class="step-title">Delivery and decision</div>
+              <p>You receive the buyer's report — clean, structured, honest. We go through it together on a Zoom call. You have everything you need to make a clear decision.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail"><div class="step-num">5</div><div class="connector"></div></div>
+            <div class="step-body">
+              <div class="step-title">Site visits, negotiation, closure (full advisory packages)</div>
+              <p>I accompany you, handle the meetings, negotiate on your behalf, and see the deal through to closure.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail"><div class="step-num">6</div></div>
+            <div class="step-body">
+              <div class="step-title">Deal closes, fee adjusts</div>
+              <p>The retainer you paid is subtracted from the brokerage at deal closure.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule"></div></div>
+
+    <!-- ===================== WHY ME ===================== -->
+    <section id="why">
+      <div class="wrap reveal">
+        <div class="eyebrow">Why me</div>
+        <div class="photo-ph">[Bhavik's photo]</div>
+        <p class="lede">I've seen this market from every angle. I grew up in it, researched it professionally, and watched how the incentives are broken for buyers. I built this service because I genuinely couldn't find anyone doing this properly — and because I'm actually good at this part of the job.</p>
+        <ul class="dash-list">
+          <li>Research analyst at India Infrastructure — I understand market data, reports, and fundamentals, not just brochures</li>
+          <li>Founder's office at Zeno Realty — seen how the real estate industry operates from the inside</li>
+          <li>Family in Noida real estate for 30+ years — this market is in my blood, not just my LinkedIn</li>
+          <li>Family in building materials across Delhi NCR — I know what things cost to build, which tells me what they're actually worth to buy</li>
+          <li>Lived across South Delhi, Gurgaon, Noida — I know every major NCR market personally, not just on paper</li>
+          <li>Currently studying real estate law — I understand the legal side of what you're signing</li>
+          <li>Closed my first resale advisory deal — a 2BHK in SKA Metroville, Greater Noida</li>
+        </ul>
+        <p class="note-line ink">I treat every client's purchase like my own. That's not a tagline — it's why I charge a fee upfront. My income depends on your outcome.</p>
+      </div>
+    </section>
+
+    <!-- ===================== SELL BOX ===================== -->
+    <section id="sell">
+      <div class="wrap reveal">
+        <div class="sell">
+          <div class="eyebrow">Looking to sell?</div>
+          <p>I work with pre-qualified buyers actively searching across NCR. If you're considering selling — reach out. No portal listings, no mass marketing. Direct introductions to serious buyers only.</p>
+          <a class="btn btn-ghost" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Bhavik%2C%20I%27m%20considering%20selling%20a%20property%20in%20NCR." target="_blank" rel="noopener">Message me on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section id="final">
+      <div class="wrap reveal">
+        <h2 class="final-title">Ready to buy without the noise?</h2>
+        <p class="final-sub">Start with a 30 minute discovery call. ₹2,000. You'll know within the first 10 minutes if this is right for you.</p>
+        <a class="btn" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Bhavik%2C%20I%27d%20like%20to%20book%20a%20discovery%20call." target="_blank" rel="noopener">Book a discovery call on WhatsApp</a>
+        <div>
+          <a class="ig-link" href="https://instagram.com/realestatewithbhavik" target="_blank" rel="noopener">See my content on Instagram → @realestatewithbhavik</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="wrap">
+      <p>© Real Estate with Bhavik · Pan-NCR Buyer Advisory · @realestatewithbhavik</p>
+    </div>
+  </footer>
+
+  <script>
+    /* Sticky nav background on scroll */
+    (function () {
+      var nav = document.getElementById('nav');
+      function onScroll() {
+        if (window.scrollY > 24) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    /* Lightweight scroll reveal (skipped if reduced motion is preferred) */
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+</body>
+
+</html>
